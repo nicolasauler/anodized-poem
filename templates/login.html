@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<section class="section" id="login">
+<h2>Login</h2>
+
+<form hx-post="/api/signin" hx-ext="my-json-enc">
+    <label for="username">Usuário</label>
+    <input type="text" name="username" id="username">
+    <label for="password">Senha</label>
+    <input type="password" name="password" id="password">
+    <input type="submit" value="Login">
+</form>
+</section>
+
+<section class="section" id="proceed_guest">
+<h2>Continuar sem Login</h2>
+<h4>Ir para a<a href="/"> página dos professores</a></h4>
+</section>
+
+{% endblock %}

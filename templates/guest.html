@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Presença{% endblock %}
+
+{% block content %}
+
+<section class="section" id="geral">
+<h3>Presença Geral</h3>
+
+<form hx-post="/api/hypermedia/general_attendance" hx-ext="my-json-enc" hx-target="#search-results-general">
+    <select name="mes" id="mes">
+        {% for mes in meses.clone() %}
+            {% if mes == mes_atual %}
+                <option value="{{ mes }}" selected>{{ mes }}</option>
+            {% else %}
+                <option value="{{ mes }}">{{ mes }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+
+    <button type="submit">Enviar</button>
+</form>
+
+<figure>
+<table class="table" role="grid">
+    <thead>
+    <tr>
+      <th>Professor</th>
+      <th>Num. Aulas</th>
+    </tr>
+    </thead>
+    <tbody id="search-results-general">
+    </tbody>
+</table>
+</figure>
+</section>
+
+<section class="section" id="detalhada">
+<h3>Presença Detalhada por Professor</h3>
+
+<form hx-post="/api/hypermedia/teacher_attendance" hx-ext="my-json-enc" hx-target="#search-results-specific">
+    <div class="grid">
+        <label for="teacher">
+        Professor:
+            <select name="teacher" id="teacher">
+                {% for teacher in teachers.clone() %}
+                    <option value="{{ teacher }}">{{ teacher }}</option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <label for="mes">
+        Mês:
+            <select name="mes" id="mes">
+                {% for mes in meses.clone() %}
+                    {% if mes == mes_atual %}
+                        <option value="{{ mes }}" selected>{{ mes }}</option>
+                    {% else %}
+                        <option value="{{ mes }}">{{ mes }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </label>
+    </div>
+
+    <button type="submit">Enviar</button>
+</form>
+
+<figure id="search-results-specific">
+</figure>
+</section>
+
+{% endblock %}
