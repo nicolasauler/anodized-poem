@@ -101,7 +101,7 @@ pub async fn sign_in(
     session: &Session,
     sign_in_data: Json<SignInData>,
 ) -> bool {
-    if &sign_in_data.username == username && &sign_in_data.password == password {
+    if sign_in_data.username == username && sign_in_data.password == password {
         session.set("username", sign_in_data.username.clone());
         let uname = &sign_in_data.username;
         let pass = &sign_in_data.password;

@@ -73,7 +73,7 @@ impl Default for AdminTemplate {
 struct GuestTemplate {
     teachers: TeachersIter,
     meses: MesesIter,
-    mes_atual: Meses,
+    mes_passado: Meses,
 }
 
 impl Default for GuestTemplate {
@@ -81,8 +81,8 @@ impl Default for GuestTemplate {
         Self {
             teachers: Teachers::iter(),
             meses: Meses::iter(),
-            mes_atual: Meses::from_chrono_month(
-                Month::try_from(u8::try_from(Utc::now().month()).unwrap()).unwrap(),
+            mes_passado: Meses::from_chrono_month(
+                Month::try_from(u8::try_from(Utc::now().month()).unwrap() - 1).unwrap(),
             ),
         }
     }

@@ -10,7 +10,7 @@
 <form hx-post="/api/hypermedia/general_attendance" hx-ext="my-json-enc" hx-target="#search-results-general">
     <select name="mes" id="mes">
         {% for mes in meses.clone() %}
-            {% if mes == mes_atual %}
+            {% if mes == mes_passado %}
                 <option value="{{ mes }}" selected>{{ mes }}</option>
             {% else %}
                 <option value="{{ mes }}">{{ mes }}</option>
@@ -53,7 +53,7 @@
         Mês:
             <select name="mes" id="mes">
                 {% for mes in meses.clone() %}
-                    {% if mes == mes_atual %}
+                    {% if mes == mes_passado %}
                         <option value="{{ mes }}" selected>{{ mes }}</option>
                     {% else %}
                         <option value="{{ mes }}">{{ mes }}</option>
