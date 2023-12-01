@@ -105,7 +105,7 @@ impl HypermediaApi {
                             "<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>",
                             date,
                             DiasDaSemana::from_chrono_weekday(date.weekday()),
-                            if let Some(level) = levels.get(0) {
+                            if let Some(level) = levels.first() {
                                 level.to_string()
                             } else {
                                 "".to_string()
