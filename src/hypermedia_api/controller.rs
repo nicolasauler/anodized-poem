@@ -66,25 +66,12 @@ impl HypermediaApi {
         punch_get_teacher_hypermedia: Json<PunchGetTeacherHypermedia>,
     ) -> Html<String> {
         let mes = &punch_get_teacher_hypermedia.mes;
-        let start_date = {
-            if let Some(mes) = mes.clone() {
-                Some(get_first_day_from_month(
-                    mes.to_chrono_month().number_from_month(),
-                ))
-            } else {
-                None
-            }
-        };
-
-        let end_date = {
-            if let Some(mes) = mes {
-                Some(get_last_day_from_month(
-                    mes.to_chrono_month().number_from_month(),
-                ))
-            } else {
-                None
-            }
-        };
+        let start_date = mes
+            .clone()
+            .map(|mes| get_first_day_from_month(mes.to_chrono_month().number_from_month()));
+        let end_date = mes
+            .clone()
+            .map(|mes| get_last_day_from_month(mes.to_chrono_month().number_from_month()));
         let punch_get_input = PunchGetInput {
             start_date,
             end_date,
@@ -118,7 +105,7 @@ impl HypermediaApi {
                             "<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>",
                             date,
                             DiasDaSemana::from_chrono_weekday(date.weekday()),
-                            if let Some(level) = levels.get(0) {
+                            if let Some(level) = levels.first() {
                                 level.to_string()
                             } else {
                                 "".to_string()
