@@ -156,7 +156,7 @@ async fn poem(
     };
 
     let api_service = OpenApiService::new((DataApi, HypermediaApi), "Attendance", "1.0.0")
-        .server("https://pd-presenca.shuttleapp.rs/api");
+        .server("https://pdpresenca.shuttleapp.rs/api");
     //.server("http://127.0.0.1:8000/api");
     let ui = api_service.swagger_ui();
     let route = Route::new()
