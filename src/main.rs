@@ -27,6 +27,7 @@ use shuttle_secrets::SecretStore;
 use sqlx::{Executor, PgPool};
 use std::env;
 use strum::IntoEnumIterator;
+use util::get_last_month;
 
 pub type DbPool = PgPool;
 
@@ -81,9 +82,7 @@ impl Default for GuestTemplate {
         Self {
             teachers: Teachers::iter(),
             meses: Meses::iter(),
-            mes_passado: Meses::from_chrono_month(
-                Month::try_from(u8::try_from(Utc::now().month()).unwrap() - 1).unwrap(),
-            ),
+            mes_passado: Meses::from_chrono_month(get_last_month()),
         }
     }
 }
