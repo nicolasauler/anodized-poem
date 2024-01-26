@@ -42,8 +42,8 @@ pub async fn get_teacher_attendance(
             "SELECT id, level, teacher, date FROM attendance WHERE teacher = $1 AND date BETWEEN $2 AND $3 ORDER BY date",
         )
         .bind(teacher.to_string())
-        .bind(punch_get_input.start_date.unwrap_or_else(|| get_first_day_from_month(Utc::now().month())))
-        .bind(punch_get_input.end_date.unwrap_or_else(|| get_last_day_from_month(Utc::now().month())))
+        .bind(punch_get_input.start_date.unwrap_or_else(|| get_first_day_from_month(Utc::now().month(), Utc::now().year())))
+        .bind(punch_get_input.end_date.unwrap_or_else(|| get_last_day_from_month(Utc::now().month(), Utc::now().year())))
         .fetch_all(pool.0)
         .await
         .map_err(InternalServerError)?;
@@ -73,12 +73,12 @@ pub async fn get_general_attendance(
     .bind(
         punch_get_input
             .start_date
-            .unwrap_or_else(|| get_first_day_from_month(Utc::now().month())),
+            .unwrap_or_else(|| get_first_day_from_month(Utc::now().month(), Utc::now().year())),
     )
     .bind(
         punch_get_input
             .end_date
-            .unwrap_or_else(|| get_last_day_from_month(Utc::now().month())),
+            .unwrap_or_else(|| get_last_day_from_month(Utc::now().month(), Utc::now().year())),
     )
     .fetch_all(pool.0)
     .await

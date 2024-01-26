@@ -45,6 +45,7 @@ pub enum ApiTags {
 #[derive(Template)]
 #[template(path = "admin.html")]
 struct AdminTemplate {
+    ano_atual: i32,
     auth: String,
     name: String,
     teachers: TeachersIter,
@@ -56,14 +57,23 @@ struct AdminTemplate {
 impl Default for AdminTemplate {
     fn default() -> Self {
         Self {
-            auth: "Basic".to_string(),
-            name: "Shuttle".to_string(),
+            ano_atual: Utc::now().year(),
+            auth: "".to_string(),
+            name: "".to_string(),
             teachers: Teachers::iter(),
             levels: Levels::iter(),
             meses: Meses::iter(),
-            mes_atual: Meses::from_chrono_month(
-                Month::try_from(u8::try_from(Utc::now().month()).unwrap()).unwrap(),
-            ),
+            mes_atual: {
+                Meses::from_chrono_month(
+                    Month::try_from(u8::try_from(Utc::now().month()).unwrap_or_else(|_| {
+                        tracing::error!(
+                            "Failed to convert chrono month to u8, defaulting to 1(January)"
+                        );
+                        1
+                    }))
+                    .unwrap_or(Month::January),
+                )
+            },
         }
     }
 }
@@ -71,6 +81,7 @@ impl Default for AdminTemplate {
 #[derive(Template)]
 #[template(path = "guest.html")]
 struct GuestTemplate {
+    ano_atual: i32,
     teachers: TeachersIter,
     meses: MesesIter,
     mes_passado: Meses,
@@ -79,11 +90,22 @@ struct GuestTemplate {
 impl Default for GuestTemplate {
     fn default() -> Self {
         Self {
+            ano_atual: Utc::now().year(),
             teachers: Teachers::iter(),
             meses: Meses::iter(),
-            mes_passado: Meses::from_chrono_month(
-                Month::try_from(u8::try_from(Utc::now().month()).unwrap() - 1).unwrap(),
-            ),
+            mes_passado: {
+                Meses::from_chrono_month(
+                    Month::try_from(
+                        u8::try_from(Utc::now().month()).unwrap_or_else(|_| {
+                            tracing::error!(
+                                "Failed to convert chrono month to u8, defaulting to 1(January)"
+                            );
+                            1
+                        }) - 1,
+                    )
+                    .unwrap_or(Month::January),
+                )
+            },
         }
     }
 }
@@ -156,7 +178,7 @@ async fn poem(
     };
 
     let api_service = OpenApiService::new((DataApi, HypermediaApi), "Attendance", "1.0.0")
-        .server("https://pd-presenca.shuttleapp.rs/api");
+        .server("https://pdpresenca.shuttleapp.rs/api");
     //.server("http://127.0.0.1:8000/api");
     let ui = api_service.swagger_ui();
     let route = Route::new()

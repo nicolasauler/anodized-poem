@@ -1,6 +1,6 @@
 use chrono::{Datelike, NaiveDate, Utc};
 
-pub fn get_first_day_from_month(month: u32) -> NaiveDate {
+pub fn get_first_day_from_month(month: u32, year: i32) -> NaiveDate {
     Utc::now()
         .with_day(1)
         .unwrap()
@@ -8,10 +8,12 @@ pub fn get_first_day_from_month(month: u32) -> NaiveDate {
         .date()
         .with_month(month)
         .unwrap()
+        .with_year(year)
+        .unwrap()
 }
 
-pub fn get_last_day_from_month(month: u32) -> NaiveDate {
-    let first_day_of_month = get_first_day_from_month(month);
+pub fn get_last_day_from_month(month: u32, year: i32) -> NaiveDate {
+    let first_day_of_month = get_first_day_from_month(month, year);
 
     if first_day_of_month.month() == 12 {
         return first_day_of_month.with_day(31).unwrap();

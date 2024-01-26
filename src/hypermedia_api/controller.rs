@@ -26,15 +26,16 @@ impl HypermediaApi {
         pool: Data<&DbPool>,
         punch_get_input_hyper: Json<PunchGetInputHypermedia>,
     ) -> Html<String> {
-        let mes = punch_get_input_hyper
-            .mes
-            .clone()
-            .expect("Mes não pode ser nulo");
+        let mes = &punch_get_input_hyper.mes;
+        let ano_string: &str = &punch_get_input_hyper.ano;
+        let ano: i32 = ano_string.parse().unwrap();
         let start_date = Some(get_first_day_from_month(
             mes.to_chrono_month().number_from_month(),
+            ano,
         ));
         let end_date = Some(get_last_day_from_month(
             mes.to_chrono_month().number_from_month(),
+            ano,
         ));
         let punch_get_input = PunchGetInput {
             start_date,
@@ -66,15 +67,13 @@ impl HypermediaApi {
         punch_get_teacher_hypermedia: Json<PunchGetTeacherHypermedia>,
     ) -> Html<String> {
         let mes = &punch_get_teacher_hypermedia.mes;
-        let start_date = mes
-            .clone()
-            .map(|mes| get_first_day_from_month(mes.to_chrono_month().number_from_month()));
-        let end_date = mes
-            .clone()
-            .map(|mes| get_last_day_from_month(mes.to_chrono_month().number_from_month()));
+        let ano: &str = &punch_get_teacher_hypermedia.ano;
+        let ano: i32 = ano.parse().unwrap();
+        let start_date = get_first_day_from_month(mes.to_chrono_month().number_from_month(), ano);
+        let end_date = get_last_day_from_month(mes.to_chrono_month().number_from_month(), ano);
         let punch_get_input = PunchGetInput {
-            start_date,
-            end_date,
+            start_date: Some(start_date),
+            end_date: Some(end_date),
         };
         let punch_reports = get_teacher_attendance(
             pool,
