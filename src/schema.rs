@@ -45,13 +45,15 @@ pub struct PunchGetInput {
 
 #[derive(Object, Clone)]
 pub struct PunchGetInputHypermedia {
-    pub mes: Option<Meses>,
+    pub mes: Meses,
+    pub ano: String,
 }
 
 #[derive(Object, Clone)]
 pub struct PunchGetTeacherHypermedia {
     pub teacher: Teachers,
-    pub mes: Option<Meses>,
+    pub mes: Meses,
+    pub ano: String,
 }
 
 #[derive(Object)]
