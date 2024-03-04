@@ -13,7 +13,7 @@ poem = { version = "2.0.0", features = ["session", "static-files"] }
 poem-openapi = { version = "4.0.0", features = ["swagger-ui", "chrono"] }
 serde = "1.0.195"
 serde_json = "1.0.109"
-shuttle-poem = "0.37.0"
+shuttle-poem = "0.40.0"
 shuttle-runtime = "0.37.0"
 shuttle-secrets = "0.37.0"
 shuttle-shared-db = { version = "0.37.0", features = ["sqlx", "postgres"] }
