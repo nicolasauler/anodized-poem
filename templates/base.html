@@ -5,8 +5,9 @@
         <!-- Allow any inheriting page to set it's own title -->
         <title>{% block title %}{{ title }}{% endblock %}</title>
 
-        <link rel="stylesheet" href="/static/pico.min.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="color-scheme" content="light dark" />
+        <link rel="stylesheet" href="/static/pico.lime.min.css">
         <script src="https://unpkg.com/htmx.org@1.9.6"></script>
         <script>
             htmx.defineExtension('my-json-enc', {

@@ -10,20 +10,16 @@ use crate::hypermedia_api::controller::HypermediaApi;
 
 use askama::Template;
 use chrono::{Datelike, Month, Utc};
-use poem::EndpointExt;
-use poem::IntoResponse;
 use poem::{
     endpoint::StaticFilesEndpoint,
     get, handler,
-    middleware::Cors,
-    middleware::Tracing,
+    middleware::{Cors, Tracing},
     session::{CookieConfig, CookieSession, Session},
-    Endpoint, Route,
+    Endpoint, EndpointExt, IntoResponse, Route,
 };
 use poem_openapi::{OpenApiService, OperationId, Tags};
 use shuttle_poem::ShuttlePoem;
-use shuttle_runtime::CustomError;
-use shuttle_secrets::SecretStore;
+use shuttle_runtime::{CustomError, SecretStore};
 use sqlx::{Executor, PgPool};
 use std::env;
 use strum::IntoEnumIterator;
@@ -163,7 +159,7 @@ where
 #[shuttle_runtime::main]
 async fn poem(
     #[shuttle_shared_db::Postgres] pool: PgPool,
-    #[shuttle_secrets::Secrets] secret_store: SecretStore,
+    #[shuttle_runtime::Secrets] secret_store: SecretStore,
 ) -> ShuttlePoem<impl poem::Endpoint> {
     if env::var_os("RUST_LOG").is_none() {
         env::set_var("RUST_LOG", "poem_openapi=debug,poem=debug,fernanda=debug");
