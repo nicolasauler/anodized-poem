@@ -3,7 +3,7 @@ name: Lint
 on:
   pull_request:
     branches: [main]
-      
+
 jobs:
   rustfmt:
     name: rustfmt-ting check
@@ -14,7 +14,7 @@ jobs:
         with:
           components: rustfmt
       - run: cargo fmt -- --check
-    
+
   clippy:
     runs-on: ubuntu-latest
     permissions:
