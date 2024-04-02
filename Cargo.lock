@@ -217,7 +217,7 @@ dependencies = [
  "pin-project-lite",
  "rustversion",
  "serde",
- "sync_wrapper",
+ "sync_wrapper 0.1.2",
  "tower",
  "tower-layer",
  "tower-service",
@@ -335,6 +335,12 @@ name = "cfg-if"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
+
+[[package]]
+name = "cfg_aliases"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fd16c4719339c4530435d38e511904438d07cce7950afa3718a84ac36c10e89e"
 
 [[package]]
 name = "chrono"
@@ -731,7 +737,7 @@ dependencies = [
  "askama",
  "base64 0.22.0",
  "chrono",
- "poem",
+ "poem 2.0.1",
  "poem-openapi",
  "serde",
  "serde_json",
@@ -1448,6 +1454,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "nix"
+version = "0.28.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ab2156c4fce2f8df6c499cc1c763e4394b7482525bf2a9701c9d79d215f519e4"
+dependencies = [
+ "bitflags 2.5.0",
+ "cfg-if",
+ "cfg_aliases",
+ "libc",
+]
+
+[[package]]
 name = "nom"
 version = "7.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1755,15 +1773,51 @@ dependencies = [
  "hyper-util",
  "mime",
  "mime_guess",
- "multer",
- "nix",
+ "nix 0.27.1",
  "parking_lot",
  "percent-encoding",
  "pin-project-lite",
- "poem-derive",
+ "poem-derive 2.0.1",
  "priority-queue",
- "quick-xml",
  "rand",
+ "regex",
+ "rfc7239",
+ "serde",
+ "serde_json",
+ "serde_urlencoded",
+ "smallvec",
+ "sync_wrapper 0.1.2",
+ "thiserror",
+ "time",
+ "tokio",
+ "tokio-util",
+ "tracing",
+ "wildmatch",
+]
+
+[[package]]
+name = "poem"
+version = "3.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8b735eaaaa6bc7ed2dcbcab1d5373afe1f6d03a37d8695ba3c42101f733a8455"
+dependencies = [
+ "bytes",
+ "chrono",
+ "cookie",
+ "futures-util",
+ "headers",
+ "http 1.1.0",
+ "http-body-util",
+ "hyper 1.2.0",
+ "hyper-util",
+ "mime",
+ "multer",
+ "nix 0.28.0",
+ "parking_lot",
+ "percent-encoding",
+ "pin-project-lite",
+ "poem-derive 3.0.0",
+ "quick-xml",
  "regex",
  "rfc7239",
  "serde",
@@ -1771,7 +1825,7 @@ dependencies = [
  "serde_urlencoded",
  "serde_yaml",
  "smallvec",
- "sync_wrapper",
+ "sync_wrapper 1.0.0",
  "tempfile",
  "thiserror",
  "time",
@@ -1795,12 +1849,24 @@ dependencies = [
 ]
 
 [[package]]
-name = "poem-openapi"
-version = "4.0.1"
+name = "poem-derive"
+version = "3.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b41a6bbb99ef0046e3214b0be463d68f5716e752f6b04dba06ba4a5d54d159d2"
+checksum = "c2b961d58a6c53380c20236394381d9292fda03577f902b158f1638932964dcf"
 dependencies = [
- "base64 0.21.7",
+ "proc-macro-crate",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.57",
+]
+
+[[package]]
+name = "poem-openapi"
+version = "5.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "24375f20342eeffd8e5e4f55483ebcda2f3fcc301a2926b61edc761842528d06"
+dependencies = [
+ "base64 0.22.0",
  "bytes",
  "chrono",
  "derive_more",
@@ -1808,7 +1874,7 @@ dependencies = [
  "indexmap 2.2.6",
  "mime",
  "num-traits",
- "poem",
+ "poem 3.0.0",
  "poem-openapi-derive",
  "quick-xml",
  "regex",
@@ -1816,15 +1882,16 @@ dependencies = [
  "serde_json",
  "serde_urlencoded",
  "serde_yaml",
+ "static_assertions",
  "thiserror",
  "tokio",
 ]
 
 [[package]]
 name = "poem-openapi-derive"
-version = "4.0.1"
+version = "5.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4eb2131050ed98d61c903123ab6e4bed5f4fe7f4623f770cb017f0baa632fae5"
+checksum = "d7c57d06358cf40434bb0e2f92c1ef578288e9ab8821d1d471a967efa74017b6"
 dependencies = [
  "darling",
  "http 1.1.0",
@@ -2358,7 +2425,7 @@ version = "0.42.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "29838f4b93c36b14e193a1a89b641cfb8ae35f8cd089fe9d2ade2b686fa52227"
 dependencies = [
- "poem",
+ "poem 2.0.1",
  "shuttle-runtime",
 ]
 
@@ -2737,6 +2804,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "static_assertions"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a2eb9349b6444b326872e140eb1cf5e7c522154d69e7a0ffb0fb81c06b37543f"
+
+[[package]]
 name = "strfmt"
 version = "0.2.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2833,6 +2906,15 @@ name = "sync_wrapper"
 version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2047c6ded9c721764247e62cd3b03c09ffc529b2ba5b10ec482ae507a4a70160"
+dependencies = [
+ "futures-core",
+]
+
+[[package]]
+name = "sync_wrapper"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "384595c11a4e2969895cad5a8c4029115f5ab956a9e5ef4de79d11a426e5f20c"
 dependencies = [
  "futures-core",
 ]
