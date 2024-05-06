@@ -7,7 +7,7 @@ edition = "2021"
 
 [dependencies]
 askama = { version = "0.12.1", features = ["serde-json"] }
-base64 = "0.22.0"
+base64 = "0.22.1"
 chrono = { version = "0.4.37", features = ["serde"] }
 poem = { version = "3.0.0", features = ["session", "static-files"] }
 poem-openapi = { version = "5.0.0", features = ["swagger-ui", "chrono"] }
