@@ -95,7 +95,7 @@ impl HypermediaApi {
 
         Html(
             format!(
-                "<h4 id=\"total\" >Total de aulas no período: {}</h4><table class=\"table\" role=\"grid\"><thead><tr><th>Data</th><th>Dia da semana</th><th>Aula</th><th>Aula</th><th>Aula</th></tr></thead><tbody id=\"table-results-specific\">{}</tbody></table>",
+                "<div class=\"overflow-auto\"> <h4 id=\"total\" >Total de aulas no período: {}</h4><table class=\"striped\" role=\"grid\"><thead><tr><th>Data</th><th>Dia da semana</th><th>Aula</th><th>Aula</th><th>Aula</th></tr></thead><tbody id=\"table-results-specific\">{}</tbody></table></div>",
                 punch_reports.n_classes,
                 punches_by_date
                     .iter()
@@ -107,17 +107,17 @@ impl HypermediaApi {
                             if let Some(level) = levels.first() {
                                 level.to_string()
                             } else {
-                                "".to_string()
+                                String::new()
                             },
                             if let Some(level) = levels.get(1) {
                                 level.to_string()
                             } else {
-                                "".to_string()
+                                String::new()
                             },
                             if let Some(level) = levels.get(2) {
                                 level.to_string()
                             } else {
-                                "".to_string()
+                                String::new()
                             },
                         )
                     })

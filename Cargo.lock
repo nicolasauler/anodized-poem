@@ -743,6 +743,7 @@ dependencies = [
  "askama",
  "base64 0.22.1",
  "chrono",
+ "num-traits",
  "poem",
  "poem-openapi",
  "serde",

@@ -50,9 +50,8 @@ impl DataApi {
                     return Ok(CreateResponse::BadRequest(Json(MyError {
                         error: "Date is in the future".to_string(),
                     })));
-                } else {
-                    date
                 }
+                date
             }
             None => today,
         };
@@ -88,6 +87,7 @@ impl DataApi {
 
     /// Health check
     #[oai(path = "/health", method = "get")]
+    #[allow(clippy::unused_async)]
     async fn health(&self) -> Result<HealthResponse> {
         tracing::info!("TESTE TESTE TESTE\n\n\n");
         Ok(HealthResponse::Health(Html(
@@ -118,9 +118,8 @@ impl DataApi {
                     return Response::new(CreateResponse::BadRequest(Json(MyError {
                         error: "Date is in the future".to_string(),
                     })));
-                } else {
-                    date
                 }
+                date
             }
             None => today,
         };
