@@ -58,14 +58,14 @@ pub struct PunchGetTeacherHypermedia {
 
 #[derive(Object)]
 pub struct PunchReport {
-    pub n_classes: i64,
+    pub n_classes: u32,
     pub punches: Vec<PunchGet>,
 }
 
 #[derive(Object)]
 pub struct PunchQuantity {
     pub teacher: Teachers,
-    pub n_classes: i64,
+    pub n_classes: u32,
 }
 
 impl Display for PunchQuantity {

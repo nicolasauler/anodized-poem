@@ -44,7 +44,7 @@ impl FromStr for Teachers {
             "Toyo" => Ok(Self::Toyo),
             "Valle" => Ok(Self::Valle),
             "Vitinho" => Ok(Self::Vitinho),
-            _ => Err(format!("{} is not a valid teacher", s)),
+            _ => Err(format!("{s} is not a valid teacher")),
         }
     }
 }
@@ -99,7 +99,7 @@ impl FromStr for Levels {
             "AzulAv2" => Ok(Levels::AzulAv2),
             "Preta" => Ok(Levels::Preta),
             "PretaAv" => Ok(Levels::PretaAv),
-            _ => Err(format!("{} is not a valid level", s)),
+            _ => Err(format!("{s} is not a valid level")),
         }
     }
 }
@@ -153,7 +153,7 @@ impl FromStr for Meses {
             "Outubro" => Ok(Meses::Outubro),
             "Novembro" => Ok(Meses::Novembro),
             "Dezembro" => Ok(Meses::Dezembro),
-            _ => Err(format!("{} is not a valid month", s)),
+            _ => Err(format!("{s} is not a valid month")),
         }
     }
 }

@@ -1,10 +1,13 @@
-use crate::data::{Levels, Teachers};
-use crate::schema::{Punch, PunchGet, PunchGetInput, PunchQuantity, PunchReport, SignInData};
-use crate::util::{get_first_day_from_month, get_last_day_from_month};
-use crate::DbPool;
+use crate::{
+    data::{Levels, Teachers},
+    schema::{Punch, PunchGet, PunchGetInput, PunchQuantity, PunchReport, SignInData},
+    util::{get_first_day_from_month, get_last_day_from_month},
+    DbPool,
+};
 
 use base64::{engine::general_purpose, Engine as _};
 use chrono::{Datelike, NaiveDate, Utc};
+use num_traits::cast::ToPrimitive;
 use poem::{error::InternalServerError, session::Session, web::Data, Result};
 use poem_openapi::{param::Path, payload::Json};
 use std::str::FromStr;
@@ -58,7 +61,7 @@ pub async fn get_teacher_attendance(
         .collect();
 
     Ok(PunchReport {
-        n_classes: punches.len() as i64,
+        n_classes: punches.len().to_u32().unwrap_or(u32::MAX),
         punches,
     })
 }
@@ -88,7 +91,7 @@ pub async fn get_general_attendance(
         .into_iter()
         .map(|punch| PunchQuantity {
             teacher: Teachers::from_str(&punch.0).unwrap(),
-            n_classes: punch.1,
+            n_classes: punch.1.to_u32().unwrap_or(u32::MAX),
         })
         .collect();
 
@@ -107,7 +110,7 @@ pub async fn sign_in(
         let pass = &sign_in_data.password;
         session.set(
             "auth",
-            general_purpose::STANDARD.encode(format!("{}:{}", uname, pass).as_bytes()),
+            general_purpose::STANDARD.encode(format!("{uname}:{pass}").as_bytes()),
         );
         true
     } else {

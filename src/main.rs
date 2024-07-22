@@ -54,8 +54,8 @@ impl Default for AdminTemplate {
     fn default() -> Self {
         Self {
             ano_atual: Utc::now().year(),
-            auth: "".to_string(),
-            name: "".to_string(),
+            auth: String::new(),
+            name: String::new(),
             teachers: Teachers::iter(),
             levels: Levels::iter(),
             meses: Meses::iter(),
@@ -113,7 +113,7 @@ struct LoginTemplate {}
 struct HtmlTemplate<T>(T);
 
 #[handler]
-async fn admin(session: &Session) -> impl IntoResponse {
+fn admin(session: &Session) -> impl IntoResponse {
     match session.get::<String>("username") {
         Some(name) => HtmlTemplate(AdminTemplate {
             auth: session.get::<String>("auth").unwrap(),
@@ -126,14 +126,14 @@ async fn admin(session: &Session) -> impl IntoResponse {
 }
 
 #[handler]
-async fn guest() -> impl IntoResponse {
+fn guest() -> impl IntoResponse {
     HtmlTemplate(GuestTemplate {
         ..Default::default()
     })
 }
 
 #[handler]
-async fn login(session: &Session) -> poem::Response {
+fn login(session: &Session) -> poem::Response {
     match session.get::<String>("username") {
         Some(name) => HtmlTemplate(AdminTemplate {
             name,
