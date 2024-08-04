@@ -10,16 +10,16 @@ askama = { version = "0.12.1", features = ["serde-json"] }
 base64 = "0.22.1"
 chrono = { version = "0.4.38", features = ["serde"] }
 num-traits = "0.2.19"
-poem = { version = "3.0.3", features = ["session", "static-files"] }
+poem = { version = "3.0.4", features = ["session", "static-files"] }
 poem-openapi = { version = "5.0.3", features = ["swagger-ui", "chrono"] }
 serde = "1.0.204"
-serde_json = "1.0.120"
-shuttle-poem = "0.46.0"
-shuttle-runtime = "0.46.0"
-shuttle-shared-db = { version = "0.46.0", features = ["sqlx", "postgres"] }
+serde_json = "1.0.122"
+shuttle-poem = "0.47.0"
+shuttle-runtime = "0.47.0"
+shuttle-shared-db = { version = "0.47.0", features = ["sqlx", "postgres"] }
 sqlx = { version = "0.7.4", features = ["sqlite", "runtime-tokio-rustls", "chrono", "postgres"] }
 strum = { version = "0.26.3", features = ["strum_macros", "derive"] }
-tokio = { version = "1.38.1", features = ["macros", "rt-multi-thread", "sync"] }
+tokio = { version = "1.39.2", features = ["macros", "rt-multi-thread", "sync"] }
 tracing = "0.1.40"
 tracing-subscriber = "0.3.18"
 
